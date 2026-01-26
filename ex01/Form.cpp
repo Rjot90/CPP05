@@ -7,17 +7,17 @@ Form::Form() : _name("undefined"), _signed(false), _requiredGrade(0), _execGrade
 Form::Form(std::string Iname, const int IrG, const int eG) 
     : _name(Iname), _signed(false), _requiredGrade(IrG), _execGrade(eG) {
     if (IrG > 150)
-        throw GradeTooHighException();
-    else if (IrG < 1)
         throw GradeTooLowException();
+    else if (IrG < 1)
+        throw GradeTooHighException();
     else if (eG > 150)
-        throw ExecTooHighException();
-    else if (eG < 1)
         throw ExecTooLowException();
+    else if (eG < 1)
+        throw ExecTooHighException();
     std::cout << "Form constructor called" << std::endl;
 }
 
-Form::Form(const Form& other) 
+Form::Form(const Form& other)
     : _name(other._name), _signed(other._signed), _requiredGrade(other._requiredGrade), _execGrade(other._execGrade) {
     std::cout << "Form copy constructor called" << std::endl;
 }
@@ -34,28 +34,49 @@ Form::~Form() {
     std::cout << "Form destructor called" << std::endl;
 }
 
-void    Form::beSigned(Bureaucrat obj) {
-    if (obj.getGrade() <= _requiredGrade) {
+const std::string& Form::getName() const {
+    return _name;
+}
+
+int Form::getGradeToExecute() const {
+    return _execGrade;
+}
+
+int Form::getGradeToSign() const {
+    return _requiredGrade;
+}
+
+bool Form::isSigned() const {
+    return _signed;
+}
+
+void    Form::beSigned(const Bureaucrat& obj) {
+    if (obj.getGrade() <= _requiredGrade)
         _signed = true;
-        std::cout << obj.getName() << "signed" << _name << std::endl;        
-    }
     else
-        std::cout << obj.getName() << "couldn't sign" << _name << "because";
-    throw GradeTooLowException();
+        throw GradeTooHighException();
 }
 
 const char* Form::GradeTooHighException::what() const throw() {
-    return "Grade is too high";
+    return "Form grade is too high";
 }
 
 const char* Form::GradeTooLowException::what() const throw() {
-    return "Grade is too low";
+    return "Form grade is too low";
 }
 
 const char* Form::ExecTooHighException::what() const throw() {
-    return "Exec grade is too high";
+    return "Exec form grade is too high";
 }
 
 const char* Form::ExecTooLowException::what() const throw() {
-    return "Exec grade is too low";
+    return "Exec form grade is too low";
+}
+
+std::ostream& operator<<(std::ostream& os, const Form& f) {
+    os << "Form " << f.getName()
+       << ", signed: " << f.isSigned()
+       << ", grade to sign: " << f.getGradeToSign()
+       << ", grade to execute: " << f.getGradeToExecute();
+    return os;
 }

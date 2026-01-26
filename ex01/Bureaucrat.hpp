@@ -1,11 +1,14 @@
 #pragma once
+#include "Form.hpp"
 #include <iostream>
 #include <string>
 
+class Form;
+
 class Bureaucrat {
     private:
-    std::string _name;
-    int         _grade;
+        std::string _name;
+        int         _grade;
 
     public:
         Bureaucrat();
@@ -14,12 +17,16 @@ class Bureaucrat {
         Bureaucrat& operator=(const Bureaucrat& other);
         ~Bureaucrat();
 
-        std::string getName();
-        int         getGrade();
+        //Getters
+        std::string getName() const;
+        int         getGrade() const;
 
+        //Methods
         void    IncrementGrade();
         void    DecrementGrade();
+        void    signForm(Form& f);
 
+        //Exception
 		class GradeTooHighException : public std::exception {
 			const char* what() const throw();
 		};

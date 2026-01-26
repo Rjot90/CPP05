@@ -4,6 +4,8 @@
 #include <iostream>
 #include <string>
 
+class Bureaucrat;
+
 class Form {
     private:
         std::string _name;
@@ -18,8 +20,14 @@ class Form {
         Form& operator=(const Form& other);
         ~Form();
 
+        //Getters
+        const std::string& getName() const;
+        bool               isSigned() const;
+        int                getGradeToSign() const;
+        int                getGradeToExecute() const;
+
         //Methods
-        void    beSigned(Bureaucrat obj);
+        void    beSigned(const Bureaucrat& obj);
 
         //Exception
         class GradeTooHighException : public std::exception {
@@ -39,3 +47,6 @@ class Form {
 			const char* what() const throw();
 		};
 };
+
+//overload
+std::ostream& operator<<(std::ostream& os, const Form& f);

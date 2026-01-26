@@ -36,32 +36,45 @@ Bureaucrat::~Bureaucrat() {
     std::cout << "Bureaucrat destructor called" << std::endl;
 }
 
-std::string Bureaucrat::getName() {
-    return this->_name;
+std::string Bureaucrat::getName() const {
+    return _name;
 }
 
-int Bureaucrat::getGrade() {
-    return this->_grade;
+int Bureaucrat::getGrade() const {
+    return _grade;
+}
+
+void    Bureaucrat::signForm(Form& f) {
+    try {
+        f.beSigned(*this);
+        std::cout << _name << " signed " << f.getName() << std::endl;
+    }
+    catch (const std::exception& e) {
+        std::cout << _name << " couldn’t sign "
+                  << f.getName()
+                  << " because " << e.what()
+                  << std::endl;
+    }
 }
 
 void    Bureaucrat::IncrementGrade() {
-    if (this->_grade + 1 > 150)
+    if (_grade + 1 > 150)
         throw GradeTooHighException();
-    this->_grade++;
-    std::cout << "Grade is now : " << this->_grade << std::endl;
+    _grade++;
+    std::cout << "Grade is now : " << _grade << std::endl;
 }
 
 void    Bureaucrat::DecrementGrade() {
-    if (this->_grade - 1 < 1)
+    if (_grade - 1 < 1)
         throw GradeTooLowException();
-    this->_grade--;
-    std::cout << "Grade is now: " << this->_grade << std::endl;
+    _grade--;
+    std::cout << "Grade is now: " << _grade << std::endl;
 }
 
 const char* Bureaucrat::GradeTooHighException::what() const throw() {
     return "Grade is too high";
- }
+}
 
 const char* Bureaucrat::GradeTooLowException::what() const throw() {
     return "Grade is too low";
- }
+}
