@@ -4,19 +4,19 @@
 #include <iostream>
 #include <string>
 
-class Form {
+class AForm {
     private:
         const std::string _name;
         bool        _signed;
         const int   _requiredGrade;
         const int   _execGrade;
     public:
-        //Constructor
-        Form();
-        Form(std::string Iname, const int IrG, const int eG);
-        Form(const Form& other);
-        Form& operator=(const Form& other);
-        ~Form();
+        //Constructors
+        AForm();
+        AForm(std::string Iname, const int IrG, const int eG);
+        AForm(const AForm& other);
+        AForm& operator=(const AForm& other);
+        virtual ~AForm();
 
         //Getters
         const std::string& getName() const;
@@ -25,7 +25,7 @@ class Form {
         int                getGradeToExecute() const;
 
         //Methods
-        void    beSigned(const Bureaucrat& obj);
+        virtual void    beSigned(const Bureaucrat& obj) = 0;
 
         //Exception
         class GradeTooHighException : public std::exception {
@@ -34,7 +34,6 @@ class Form {
 
 		class GradeTooLowException : public std::exception {
 			const char* what() const throw();
-
 		};
 
         class ExecTooHighException : public std::exception {
@@ -46,5 +45,5 @@ class Form {
 		};
 };
 
-//overload
-std::ostream& operator<<(std::ostream& os, const Form& f);
+//Overload
+std::ostream& operator<<(std::ostream& os, const AForm& f);
