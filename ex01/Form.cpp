@@ -1,4 +1,5 @@
 #include "Form.hpp"
+// CONSTRUCTORS
 
 Form::Form() : _name("undefined"), _signed(false), _requiredGrade(0), _execGrade(0) {
     std::cout << "Form default constructor called" << std::endl;
@@ -34,6 +35,12 @@ Form::~Form() {
     std::cout << "Form destructor called" << std::endl;
 }
 
+/*
+-------------------------------
+    GETTERS
+
+*/
+
 const std::string& Form::getName() const {
     return _name;
 }
@@ -50,12 +57,24 @@ bool Form::isSigned() const {
     return _signed;
 }
 
+/*
+-------------------------------
+    METHODS
+
+*/
+
 void    Form::beSigned(const Bureaucrat& obj) {
     if (obj.getGrade() <= _requiredGrade)
         _signed = true;
     else
         throw GradeTooHighException();
 }
+
+/*
+-------------------------------
+    EXCEPTIONS
+
+*/
 
 const char* Form::GradeTooHighException::what() const throw() {
     return "Form grade is too high";
@@ -73,6 +92,12 @@ const char* Form::ExecTooLowException::what() const throw() {
     return "Exec form grade is too low";
 }
 
+/*
+-------------------------------
+    OVERLOADS
+
+*/
+
 std::ostream& operator<<(std::ostream& os, const Form& f) {
     os << "Form " << f.getName()
        << ", signed: " << f.isSigned()
@@ -80,3 +105,15 @@ std::ostream& operator<<(std::ostream& os, const Form& f) {
        << ", grade to execute: " << f.getGradeToExecute();
     return os;
 }
+
+/*
+               *       +
+           '                  |
+       ()    .-.,="``"=.    - o -
+             '=/_       \     |
+          *   |  '=._    |
+               \     `=./`,        '
+            .   '=.__.=' `='      *
+   +                         +
+
+*/
