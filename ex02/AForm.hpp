@@ -10,6 +10,8 @@ class AForm {
         bool        _signed;
         const int   _requiredGrade;
         const int   _execGrade;
+    protected:
+        virtual void action() = 0;
     public:
         //Constructors
         AForm();
@@ -25,7 +27,8 @@ class AForm {
         int                getGradeToExecute() const;
 
         //Methods
-        virtual void    beSigned(const Bureaucrat& obj) = 0;
+        void    beSigned(const Bureaucrat& obj);
+        void    execute(const Bureaucrat& executor);
 
         //Exception
         class GradeTooHighException : public std::exception {
@@ -41,6 +44,10 @@ class AForm {
 		};
 
 		class ExecTooLowException : public std::exception {
+			const char* what() const throw();
+		};
+
+        class FormNotSignedException : public std::exception {
 			const char* what() const throw();
 		};
 };
