@@ -56,19 +56,6 @@ int Bureaucrat::getGrade() const {
     return _grade;
 }
 
-void    Bureaucrat::signForm(Form& f) {
-    try {
-        f.beSigned(*this);
-        std::cout << _name << " signed " << f.getName() << std::endl;
-    }
-    catch (const std::exception& e) {
-        std::cout << _name << " couldn’t sign "
-                  << f.getName()
-                  << " because " << e.what()
-                  << std::endl;
-    }
-}
-
 /*
 -------------------------------
     METHODS
@@ -87,6 +74,34 @@ void    Bureaucrat::DecrementGrade() {
         throw GradeTooLowException();
     _grade--;
     std::cout << "Grade is now: " << _grade << std::endl;
+}
+
+void    Bureaucrat::signForm(AForm& f) {
+    try {
+        f.beSigned(*this);
+        std::cout << _name << " signed " << f.getName() << std::endl;
+    }
+    catch (const std::exception& e) {
+        std::cout << _name << " couldn’t sign "
+                  << f.getName()
+                  << " because " << e.what()
+                  << std::endl;
+    }
+}
+
+void    Bureaucrat::executeForm(AForm const & form) const {
+    if (this->getGrade() <= form.getGradeToExecute()) {
+        if (form.isSigned()) {
+            std::cout << this->getName() << "executed" << form.getName() << std::endl;
+        }
+        else {
+            std::cout << "Form not signed" << std::endl;
+            return;
+        }
+    }
+    else {
+        throw GradeTooLowException();
+    }
 }
 
 /*
