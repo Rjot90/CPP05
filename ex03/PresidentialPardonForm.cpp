@@ -36,3 +36,4 @@ std::ostream& operator<<(std::ostream& os, const PresidentialPardonForm& pf) {
         pf.getGradeToSign() << std::endl << "Grade to exec: " << pf.getGradeToExecute();
     return os;
 }
+

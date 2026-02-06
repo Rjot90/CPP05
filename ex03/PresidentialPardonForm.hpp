@@ -18,3 +18,4 @@ class PresidentialPardonForm : public AForm {
 };
 
 std::ostream& operator<<(std::ostream& os, const PresidentialPardonForm& pf);
+
