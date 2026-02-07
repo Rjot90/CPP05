@@ -25,30 +25,34 @@ ShrubberyCreationForm::~ShrubberyCreationForm() {
     std::cout << "ShrubberyCreationForm destructor called" << std::endl;
 }
 
-void    ShrubberyCreationForm::action() const {
+void    ShrubberyCreationForm::execute(const Bureaucrat& executor) const {
+    if (isSigned() == false)
+        throw FormNotSignedException();
+    else if (executor.getGrade() > getGradeToExecute())
+        throw ExecTooLowException();
+
     std::ofstream outfile((_target + "_shrubbery").c_str());
-    
-    outfile << R"(
-                     .o00o
-                   o000000oo
-                  00000000000o
-                 00000000000000
-              oooooo  00000000  o88o
-           ooOOOOOOOoo  ```''  888888
-         OOOOOOOOOOOO'.qQQQQq. `8888'
-        oOOOOOOOOOO'.QQQQQQQQQQ/.88'
-        OOOOOOOOOO'.QQQQQQQQQQ/ /q
-         OOOOOOOOO QQQQQQQQQQ/ /QQ
-           OOOOOOOOO `QQQQQQ/ /QQ'
-             OO:F_P:O `QQQ/  /Q'
-                \\. \ |  // |
-                d\ \\\|_////
-                qP| \\ _' `|Ob
-                   \  / \  \Op
-                   |  | O| |
-           _       /\. \_/ /\
-            `---__/|_\\   //|  __
-                  `-'  `-'`-'-' )";
+    outfile <<
+    "                     .o00o\n"
+    "                   o000000oo\n"
+    "                  00000000000o\n"
+    "                 00000000000000\n"
+    "              oooooo  00000000  o88o\n"
+    "           ooOOOOOOOoo  ```''  888888\n"
+    "         OOOOOOOOOOOO'.qQQQQq. `8888'\n"
+    "        oOOOOOOOOOO'.QQQQQQQQQQ/.88'\n"
+    "        OOOOOOOOOO'.QQQQQQQQQQ/ /q\n"
+    "         OOOOOOOOO QQQQQQQQQQ/ /QQ\n"
+    "           OOOOOOOOO `QQQQQQ/ /QQ'\n"
+    "             OO:F_P:O `QQQ/  /Q'\n"
+    "                \\\\. \\\\ |  // |\n"
+    "                d\\ \\|||_////\n"
+    "                qP| \\ _' `|Ob\n"
+    "                   \\  / \\  \\Op\n"
+    "                   |  | O| |\n"
+    "           _       /\\. \\_/ /\\\n"
+    "            `---__/|_\\\\   //|  __\n"
+    "                  `-'  `-'`-'-'\n";
     std::cout << "Shrubbery file successfully created as " << _target << "_shruberry" << std::endl;
 }
 

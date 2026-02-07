@@ -4,14 +4,14 @@
 #include <iostream>
 #include <string>
 
+class Bureaucrat;
+
 class AForm {
-    private:
+    protected:
         const std::string _name;
         bool        _signed;
         const int   _requiredGrade;
         const int   _execGrade;
-    protected:
-        virtual void action() = 0;
     public:
         //Constructors
         AForm();
@@ -26,9 +26,10 @@ class AForm {
         int                getGradeToSign() const;
         int                getGradeToExecute() const;
 
+
         //Methods
         void    beSigned(const Bureaucrat& obj);
-        void    execute(const Bureaucrat& executor);
+		virtual void execute(Bureaucrat const & executor) const = 0; //Abstract
 
         //Exception
         class GradeTooHighException : public std::exception {

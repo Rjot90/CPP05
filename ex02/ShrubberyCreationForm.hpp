@@ -8,8 +8,6 @@
 class ShrubberyCreationForm : public AForm {
     private:
         std::string _target;
-    protected:
-        void    action() const;
     public:
     //Constructors
         ShrubberyCreationForm();
@@ -17,6 +15,9 @@ class ShrubberyCreationForm : public AForm {
         ShrubberyCreationForm(const ShrubberyCreationForm& other);
         ShrubberyCreationForm& operator=(const ShrubberyCreationForm& other);
         virtual ~ShrubberyCreationForm();
+
+        //Methods
+        void execute(Bureaucrat const & executor) const;
 };
 
-std::ostream& operator<<(std::ostream& os, const ShrubberyCreationForm& pf) {
+std::ostream& operator<<(std::ostream& os, const ShrubberyCreationForm& pf);

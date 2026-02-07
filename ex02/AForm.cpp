@@ -6,7 +6,7 @@
 
 */
 
-AForm::AForm() : _name("undefined"), _signed(false), _requiredGrade(0), _execGrade(0) {
+AForm::AForm() : _name("undefined"), _signed(false), _requiredGrade(150), _execGrade(150) {
     std::cout << "Form default constructor called" << std::endl;
 }
 
@@ -75,12 +75,11 @@ void    AForm::beSigned(const Bureaucrat& obj) {
         throw GradeTooHighException();
 }
 
-void    AForm::execute(const Bureaucrat& executor) {
+void    AForm::execute(const Bureaucrat& executor) const {
     if (isSigned() == false)
         throw FormNotSignedException();
     else if (executor.getGrade() > getGradeToExecute())
         throw ExecTooLowException();
-    action(); // VIRTUAL HERE
 }
 
 /*

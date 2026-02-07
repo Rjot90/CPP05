@@ -4,6 +4,8 @@
 #include <iostream>
 #include <string>
 
+class Bureaucrat;
+
 class Form {
     private:
         const std::string _name;

@@ -3,12 +3,15 @@
 #include <iostream>
 #include <string>
 
+class AForm;
+
 class Bureaucrat {
     private:
         std::string _name;
         int         _grade;
 
     public:
+        //Constructors
         Bureaucrat();
         Bureaucrat(std::string InputName,int InputGrade);
         Bureaucrat(const Bureaucrat& other);

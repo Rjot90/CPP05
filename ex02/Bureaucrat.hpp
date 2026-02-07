@@ -3,12 +3,15 @@
 #include <iostream>
 #include <string>
 
+class AForm;
+
 class Bureaucrat {
     private:
         std::string _name;
         int         _grade;
 
     public:
+        //Constructors
         Bureaucrat();
         Bureaucrat(std::string InputName,int InputGrade);
         Bureaucrat(const Bureaucrat& other);
@@ -34,3 +37,6 @@ class Bureaucrat {
 			const char* what() const throw();
 		};
 };
+
+//Overload
+std::ostream& operator<<(std::ostream& os, const Bureaucrat& b);

@@ -25,7 +25,13 @@ RobotomyRequestForm::~RobotomyRequestForm() {
     std::cout << "RobotomyRequestForm destructor called" << std::endl;
 }
 
-void    RobotomyRequestForm::action() const {
+void    RobotomyRequestForm::execute(const Bureaucrat& executor) const {
+    if (isSigned() == false)
+        throw FormNotSignedException();
+    else if (executor.getGrade() > getGradeToExecute())
+        throw ExecTooLowException();
+
+    //Action
     bool res = (rand() % 2) == 1;
     if (res)
         std::cout << _target << " has been robotomized." << std::endl;

@@ -90,18 +90,7 @@ void    Bureaucrat::signForm(AForm& f) {
 }
 
 void    Bureaucrat::executeForm(AForm const & form) const {
-    if (this->getGrade() <= form.getGradeToExecute()) {
-        if (form.isSigned()) {
-            std::cout << this->getName() << "executed" << form.getName() << std::endl;
-        }
-        else {
-            std::cout << "Form not signed" << std::endl;
-            return;
-        }
-    }
-    else {
-        throw GradeTooLowException();
-    }
+    form.execute(*this);
 }
 
 /*
@@ -116,4 +105,15 @@ const char* Bureaucrat::GradeTooHighException::what() const throw() {
 
 const char* Bureaucrat::GradeTooLowException::what() const throw() {
     return "Grade is too low";
+}
+
+/*
+-------------------------------
+    OVERLOADS
+
+*/
+
+std::ostream& operator<<(std::ostream& os, const Bureaucrat& b) {
+    os << "Name: " << b.getName() << std::endl << "Grade: " << b.getGrade() << std::endl;
+    return os; 
 }
