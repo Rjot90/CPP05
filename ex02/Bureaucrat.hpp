@@ -7,7 +7,7 @@ class AForm;
 
 class Bureaucrat {
     private:
-        std::string _name;
+        const std::string _name;
         int         _grade;
 
     public:
@@ -19,7 +19,7 @@ class Bureaucrat {
         ~Bureaucrat();
 
         //Getters
-        std::string getName() const;
+        const std::string& getName() const;
         int         getGrade() const;
 
         //Methods

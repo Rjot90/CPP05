@@ -18,10 +18,13 @@ int main() {
         Intern someRandomIntern;
 
         std::cout << "\n===== TEST 1 : CREATION DE FORMS VALIDES =====" << std::endl;
+        AForm* f1 = NULL;
+        AForm* f2 = NULL;
+        AForm* f3 = NULL;
         try {
-            AForm* f1 = someRandomIntern.makeForm("shrubbery creation", "home");
-            AForm* f2 = someRandomIntern.makeForm("robotomy request", "Bender");
-            AForm* f3 = someRandomIntern.makeForm("presidential pardon", "Arthur Dent");
+            f1 = someRandomIntern.makeForm("shrubbery creation", "home");
+            f2 = someRandomIntern.makeForm("robotomy request", "Bender");
+            f3 = someRandomIntern.makeForm("presidential pardon", "Arthur Dent");
 
             boss.signForm(*f1);
             boss.executeForm(*f1);
@@ -38,21 +41,26 @@ int main() {
         }
         catch (const std::exception& e) {
             std::cout << "Caught in TEST 1: " << e.what() << std::endl;
+            delete f1;
+            delete f2;
+            delete f3;
         }
 
         std::cout << "\n===== TEST 2 : FORM INCONNUE (DOIT FAIL) =====" << std::endl;
         try {
             AForm* bad = someRandomIntern.makeForm("tax evasion", "Bercy");
-            delete bad;
+            if (bad)
+                delete bad;
         }
         catch (const std::exception& e) {
             std::cout << "Caught in TEST 2: " << e.what() << std::endl;
         }
 
         std::cout << "\n===== TEST 3 : EXECUTION AVEC GRADE TROP FAIBLE =====" << std::endl;
+        AForm* f = NULL;
         try {
             Bureaucrat noob("Noob", 150);
-            AForm* f = someRandomIntern.makeForm("robotomy request", "Marvin");
+            f = someRandomIntern.makeForm("robotomy request", "Marvin");
 
             noob.signForm(*f);      // doit FAIL ou passer selon ton implémentation
             noob.executeForm(*f);   // doit FAIL
@@ -61,6 +69,7 @@ int main() {
         }
         catch (const std::exception& e) {
             std::cout << "Caught in TEST 3: " << e.what() << std::endl;
+            delete f;
         }
 
         std::cout << "\n===== FIN DES TESTS ex03 =====" << std::endl;
